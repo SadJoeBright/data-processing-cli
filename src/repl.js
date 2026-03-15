@@ -1,12 +1,21 @@
 import readline from "node:readline";
 import { MESSAGES, COMMANDS } from "./constants/index.js";
 import * as navigation from "./navigation.js";
+import * as commands from "./commands/index.js";
 
 const getPromptText = () => `You are currently in ${process.cwd()}\n>`;
 
 const goodbye = () => {
 	console.log(MESSAGES.GOODBYE);
 	process.exit(0);
+};
+
+const commandHandlers = {
+	[COMMANDS.EXIT]: goodbye,
+	[COMMANDS.UP]: () => navigation.up(),
+	[COMMANDS.CD]: (pathArg) => navigation.cd(pathArg),
+	[COMMANDS.LS]: () => navigation.ls(),
+	[COMMANDS.COUNT]: (pathArg) => commands.count(pathArg),
 };
 
 export const start = () => {
@@ -26,25 +35,15 @@ export const start = () => {
 		const pathArg = spaceIndex === -1 ? "" : trimmed.slice(spaceIndex + 1).trim();
 
 		try {
-			switch (cmd) {
-				case COMMANDS.EXIT:
-					goodbye();
-					return;
-				case COMMANDS.UP:
-					navigation.up();
-					break;
-				case COMMANDS.CD:
-					navigation.cd(pathArg);
-					break;
-				case COMMANDS.LS:
-					await navigation.ls();
-					break;
-				case "":
-					break;
-				default:
+			if (cmd) {
+				const handler = commandHandlers[cmd];
+				if (handler) {
+					await handler(pathArg);
+				} else {
 					console.log(MESSAGES.INVALID_INPUT);
+				}
 			}
-		} catch {
+		} catch (err) {
 			console.error(MESSAGES.OPERATION_FAILED);
 		}
 

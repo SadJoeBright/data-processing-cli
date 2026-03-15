@@ -10,5 +10,6 @@ export const COMMANDS = {
 	UP: "up",
 	CD: "cd",
 	LS: "ls",
+	COUNT: "count",
 	EXIT: ".exit",
 };
