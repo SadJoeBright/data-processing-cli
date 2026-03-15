@@ -7,5 +7,8 @@ export const MESSAGES = {
 
 
 export const COMMANDS = {
+	UP: "up",
+	CD: "cd",
+	LS: "ls",
 	EXIT: ".exit",
 };
