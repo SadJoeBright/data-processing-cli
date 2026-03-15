@@ -11,5 +11,6 @@ export const COMMANDS = {
 	CD: "cd",
 	LS: "ls",
 	COUNT: "count",
+	CSV_TO_JSON: "csv-to-json",
 	EXIT: ".exit",
 };

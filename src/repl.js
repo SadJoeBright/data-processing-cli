@@ -16,6 +16,7 @@ const commandHandlers = {
 	[COMMANDS.CD]: (pathArg) => navigation.cd(pathArg),
 	[COMMANDS.LS]: () => navigation.ls(),
 	[COMMANDS.COUNT]: (pathArg) => commands.count(pathArg),
+	[COMMANDS.CSV_TO_JSON]: (userInput) => commands.csvToJson(userInput),
 };
 
 export const start = () => {
